@@ -8,7 +8,7 @@ used) and it is:
 - URL mapped (.htaccess rewrite)
 - Based on an MVC pattern
 - Object oriented
-- Uses database (MySQL), done
+- Uses database (MySQL)
 
 Requirements:
 

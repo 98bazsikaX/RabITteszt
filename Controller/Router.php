@@ -19,7 +19,7 @@ class Router
         $found = false;
         foreach ($this->routes as $route) {
             if (in_array($urlRoute, $route->getPath())) {
-                echo $route->getView()->renderView($route->dataSource);
+                echo $route->getView()->renderView($route->getDataSource());
                 $found = true;
                 break;
             }

@@ -5,7 +5,7 @@ class Route
 {
     private array $path;
     private ViewInterface $view;
-    private ServiceInterface $dataSource;
+    private ?ServiceInterface $dataSource;
 
     /**
      * @param array $path possible paths provided to a view

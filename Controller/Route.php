@@ -1,19 +1,42 @@
 <?php
+include_once(realpath(dirname(__FILE__) . "/../Model/ServiceInterface.php"));
 
 class Route
 {
     private array $path;
     private ViewInterface $view;
+    private ServiceInterface $dataSource;
 
     /**
      * @param array $path possible paths provided to a view
      * @param ViewInterface $view
+     * @param ?ServiceInterface $dataSource source of the datas being used in the veiws, nullable if none is used
      */
-    public function __construct(array $path, ViewInterface $view)
+    public function __construct(array $path, ViewInterface $view, ?ServiceInterface $dataSource)
     {
         $this->path = $path;
         $this->view = $view;
+        $this->dataSource = $dataSource;
     }
+
+    /**
+     * @return ServiceInterface
+     */
+    public function getDataSource(): ServiceInterface
+    {
+        return $this->dataSource;
+    }
+
+    /**
+     * @param ServiceInterface $dataSource
+     * @return Route
+     */
+    public function setDataSource(ServiceInterface $dataSource): Route
+    {
+        $this->dataSource = $dataSource;
+        return $this;
+    }
+
 
     /**
      * @return array

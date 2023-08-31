@@ -14,11 +14,14 @@ include_once './Controller/Router.php';
 include_once './View/AdView.php';
 include_once './View/UsersView.php';
 include_once './View/IndexView.php';
+include_once './Model/ServiceInterface.php';
+include_once './Model/AdvertisementService.php';
+include_once './Model/UserService.php';
 $routes =
     [
-        new Route(['','/','/index'], new IndexView()),
-        new Route(['/ads', '/advertisements'], new AdView()),
-        new Route(['/users'], new UsersView())
+        new Route(['', '/', '/index'], new IndexView(),null),
+        new Route(['/ads', '/advertisements'], new AdView(),new AdvertisementService()),
+        new Route(['/users'], new UsersView(), new UserService())
     ];
 
 $router = new Router($routes);

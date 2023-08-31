@@ -16,14 +16,17 @@ class Router
     {
         $currentRoute = $_SERVER['REQUEST_URI'];
         $urlRoute = explode('?', $currentRoute)[0];
-        echo $urlRoute . "</br>";
-        foreach ($this->routes as $route){
-            if(in_array($urlRoute,$route->getPath())){
-                echo $route->getView()->renderView("");
+        $found = false;
+        foreach ($this->routes as $route) {
+            if (in_array($urlRoute, $route->getPath())) {
+                echo $route->getView()->renderView($route->dataSource);
+                $found = true;
                 break;
             }
         }
+        if (!$found) {
+            echo "<h2>ERROR 404 ROUTE '{$urlRoute}' NOT FOUND 🥺🥺🥺</h2> </br>";
+        }
+
     }
-
-
 }

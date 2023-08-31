@@ -1,22 +1,24 @@
 <?php
 include_once 'advertisement.php';
-include_once(realpath(dirname(__FILE__) . '/../Utility/DotEnvParser.php'));
 include_once 'UserService.php';
+include_once 'ServiceInterface.php';
 
-class AdvertisementService
+class AdvertisementService implements ServiceInterface
 {
     private mysqli $connection;
     private UserService $userService;
+    private array $config;
 
     /**
      *
      */
     public function __construct()
     {
-        $dbUrl = DotEnvParser::getByKey('DATABASE_URL');
-        $dbUser = DotEnvParser::getByKey('DATABASE_USER');
-        $dbPassword = DotEnvParser::getByKey('DATABASE_PASSWORD');
-        $dbName = DotEnvParser::getByKey('DATABASE_NAME');
+        $config = include(realpath(dirname(__FILE__) . '/../Utility/config.php'));
+        $dbUrl = $config['DATABASE_URL'];
+        $dbUser = $config['DATABASE_USER'];
+        $dbPassword = $config['DATABASE_PASSWORD'];
+        $dbName = $config['DATABASE_NAME'];
         $this->connection = mysqli_connect($dbUrl, $dbUser, $dbPassword); //the connection is tested in the functions using that
         $this->connection->select_db($dbName);
         $this->userService = new UserService();

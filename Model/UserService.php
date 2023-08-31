@@ -1,11 +1,12 @@
 <?php
-include_once(realpath(dirname(__FILE__) . '/../Utility/DotEnvParser.php'));
+include_once(realpath(dirname(__FILE__) . '/../Utility/config.php'));
 include_once 'user.php';
+include_once 'ServiceInterface.php';
 
 /**
  *
  */
-class UserService
+class UserService implements ServiceInterface
 {
     /*only using a mysqli object, since it results in a cleaner code
       if I create the connection in the constructor, and destroy it in the destructor
@@ -15,15 +16,18 @@ class UserService
      */
     private mysqli $connection;
 
+    private string $config;
+
     /**
      *
      */
     public function __construct()
     {
-        $dbUrl = DotEnvParser::getByKey('DATABASE_URL');
-        $dbUser = DotEnvParser::getByKey('DATABASE_USER');
-        $dbPassword = DotEnvParser::getByKey('DATABASE_PASSWORD');
-        $dbName = DotEnvParser::getByKey('DATABASE_NAME');
+        $config = include(realpath(dirname(__FILE__) . '/../Utility/config.php'));
+        $dbUrl = $config['DATABASE_URL'];
+        $dbUser = $config['DATABASE_USER'];
+        $dbPassword = $config['DATABASE_PASSWORD'];
+        $dbName = $config['DATABASE_NAME'];
         $this->connection = mysqli_connect($dbUrl, $dbUser, $dbPassword); //the connection is tested in the functions using that
         $this->connection->select_db($dbName);
     }
@@ -55,7 +59,7 @@ class UserService
      * @param $id
      * @return User|null
      */
-    public function getUserById($id):?User
+    public function getUserById($id): ?User
     {
         $allUsers = $this->getAllUsers();
         foreach ($allUsers as $user) {
@@ -70,7 +74,7 @@ class UserService
      * @param $name
      * @return array
      */
-    public function getUsersByName($name):array
+    public function getUsersByName($name): array
     {
         $allUsers = $this->getAllUsers();
         $toReturn = [];

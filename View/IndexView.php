@@ -4,7 +4,7 @@ include_once 'ViewInterface.php';
 class IndexView implements ViewInterface
 {
 
-    public function renderView($params): string
+    public function renderView($dataSource): string
     {
         return "index";
     }

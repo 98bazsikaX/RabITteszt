@@ -9,7 +9,21 @@
 </head>
 <body>
 <?php
-echo $_SERVER['REQUEST_URI'] . '<br/>';
+include_once './Controller/Route.php';
+include_once './Controller/Router.php';
+include_once './View/AdView.php';
+include_once './View/UsersView.php';
+include_once './View/IndexView.php';
+$routes =
+    [
+        new Route(['','/','/index'], new IndexView()),
+        new Route(['/ads', '/advertisements'], new AdView()),
+        new Route(['/users'], new UsersView())
+    ];
+
+$router = new Router($routes);
+$router->display();
+
 ?>
 </body>
 </html>

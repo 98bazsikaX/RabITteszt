@@ -2,5 +2,5 @@
 
 interface ViewInterface
 {
-    public function renderView();
+    public function renderView($params):string;
 }

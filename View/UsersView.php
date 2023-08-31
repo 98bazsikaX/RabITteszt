@@ -1,10 +1,11 @@
 <?php
+include_once 'ViewInterface.php';
 
 class UsersView implements ViewInterface
 {
 
-    public function renderView()
+    public function renderView($params): string
     {
-        // TODO: Implement renderView() method.
+        return "users";
     }
 }

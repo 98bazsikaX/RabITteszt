@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php
-echo $_GET['url'];
+
 
 ?>
 </body>

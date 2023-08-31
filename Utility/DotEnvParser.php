@@ -31,6 +31,11 @@ class DotEnvParser{
             case 'DATABASE_USER':
                 $toReturn = 'root';
                 break;
+            case 'DATABASE_NAME':
+                $toReturn = 'php_test';
+                break;
+            default:
+                $toReturn = '';
         }
         return $toReturn;
     }

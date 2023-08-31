@@ -60,7 +60,7 @@ class AdvertisementService implements ServiceInterface
         return null;
     }
 
-    public function getAdvertisementsByUserId($userId): array
+    public function getAdsByUserId($userId): array
     {
         $allAds = $this->getAllAdvertisements();
         $toReturn = [];

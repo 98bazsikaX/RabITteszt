@@ -1,19 +1,12 @@
 <?php
+include_once 'advertisement.php';
 include_once(realpath(dirname(__FILE__) . '/../Utility/DotEnvParser.php'));
-include_once 'user.php';
+include_once 'UserService.php';
 
-/**
- *
- */
-class UserService
+class AdvertisementService
 {
-    /*only using a mysqli object, since it results in a cleaner code
-      if I create the connection in the constructor, and destroy it in the destructor
-    */
-    /**
-     * @var mysqli|false
-     */
     private mysqli $connection;
+    private UserService $userService;
 
     /**
      *
@@ -26,65 +19,58 @@ class UserService
         $dbName = DotEnvParser::getByKey('DATABASE_NAME');
         $this->connection = mysqli_connect($dbUrl, $dbUser, $dbPassword); //the connection is tested in the functions using that
         $this->connection->select_db($dbName);
+        $this->userService = new UserService();
     }
 
-    /**
-     * @return array
-     */
-    public function getAllUsers(): array
+    public function getAllAdvertisements(): array
     {
         if ($this->connection->connect_error) {
             die("Connection Error! code: " . $this->connection->connect_errno);
         }
-        $query = "SELECT * FROM users";
+        $query = "SELECT * FROM advertisements";
         $queryResult = $this->connection->query($query);
         if (!$queryResult) {
             return [];
         }
         $returnValue = array();
+
         while ($row = mysqli_fetch_array($queryResult, MYSQLI_ASSOC)) {
-            $toAdd = new User();
-            $toAdd->id = intval($row['id']); //making sure that its an integer
-            $toAdd->name = $row['name'];
-            $returnValue[] = $toAdd; //phpstorm suggested doing this instead of the array_push() function
+            $toAdd = new Advertisement();
+            $userId = intval($row['userid']);
+            $user = $this->userService->getUserById($userId);
+            $toAdd->id = intval($row['id']);
+            $toAdd->user = $user;
+            $toAdd->title = $row['title'];
+            $returnValue[] = $toAdd;
         }
         return $returnValue;
+
     }
 
-    /**
-     * @param $id
-     * @return User|null
-     */
-    public function getUserById($id):?User
+    public function getAdvertisementById($id): ?Advertisement
     {
-        $allUsers = $this->getAllUsers();
-        foreach ($allUsers as $user) {
-            if ($user->id == $id) {
-                return $user;
+        $allAds = $this->getAllAdvertisements();
+        foreach ($allAds as $ad) {
+            if ($ad->id == $id) {
+                return $ad;
             }
         }
         return null;
     }
 
-    /**
-     * @param $name
-     * @return array
-     */
-    public function getUsersByName($name):array
+    public function getAdvertisementsByUserId($userId): array
     {
-        $allUsers = $this->getAllUsers();
+        $allAds = $this->getAllAdvertisements();
         $toReturn = [];
-        foreach ($allUsers as $user) {
-            if ($user->name === $name) {
-                $toReturn[] = $user;
+        foreach ($allAds as $ad) {
+            if ($ad->user->id == $userId) {
+                $toReturn[] = $ad;
             }
         }
         return $toReturn;
     }
 
-    /**
-     *
-     */
+
     public function __destruct()
     {
         $this->connection->close();

@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php
-
+echo $_SERVER['REQUEST_URI'] . '<br/>';
 ?>
 </body>
 </html>

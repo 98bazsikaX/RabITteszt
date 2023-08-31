@@ -20,9 +20,9 @@ class Route
     }
 
     /**
-     * @return ServiceInterface
+     * @return ?ServiceInterface
      */
-    public function getDataSource(): ServiceInterface
+    public function getDataSource(): ?ServiceInterface
     {
         return $this->dataSource;
     }

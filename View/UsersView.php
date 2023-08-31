@@ -8,8 +8,8 @@ class UsersView implements ViewInterface
     {
         $users = $dataSource->getAllUsers();
         $table = "";
-        foreach ($users as $user){
-            $table .="<tr>
+        foreach ($users as $user) {
+            $table .= "<tr>
                         <td>{$user->id}</td>
                         <td>{$user->name}</td>
                         <td><a href='/ads?userid={$user->id}'>Ads of user</a></td>

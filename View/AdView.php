@@ -7,8 +7,8 @@ class AdView implements ViewInterface
     {
         $ads = isset($_GET['userid']) ? $dataSource->getAdsByUserId($_GET['userid']) : $dataSource->getAllAdvertisements();
         $table = "";
-        foreach($ads as $data){
-            $table.= "<tr>
+        foreach ($ads as $data) {
+            $table .= "<tr>
                         <td>{$data->id}</td>
                         <td>{$data->user->name}</td>
                         <td>$data->title</td>

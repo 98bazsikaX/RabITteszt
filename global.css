@@ -1,0 +1,17 @@
+body{
+    background-color: antiquewhite;
+    color:darkslategray;
+}
+
+
+table{
+    border-style:dotted;
+    border-width: 1px;
+}
+
+
+a{
+    border-style:solid;
+    border-radius: 20px;
+    border-color:red;
+}

@@ -1,9 +1,16 @@
 <?php
 include_once 'ViewInterface.php';
 
+/**
+ *
+ */
 class UsersView implements ViewInterface
 {
 
+    /**
+     * @param $dataSource service to feed the view data
+     * @return string html code of the view/page as a string
+     */
     public function renderView($dataSource): string
     {
         $users = $dataSource->getAllUsers();

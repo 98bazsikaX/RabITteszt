@@ -8,14 +8,16 @@ include_once 'ServiceInterface.php';
  */
 class UserService implements ServiceInterface
 {
-    /*only using a mysqli object, since it results in a cleaner code
-      if I create the connection in the constructor, and destroy it in the destructor
-    */
     /**
+     * only using a mysqli object, since it results in a cleaner code
+     *if I create the connection in the constructor, and destroy it in the destructor
      * @var mysqli|false
      */
     private mysqli $connection;
 
+    /**
+     * @var string
+     */
     private string $config;
 
     /**
@@ -33,7 +35,7 @@ class UserService implements ServiceInterface
     }
 
     /**
-     * @return array
+     * @return array returns all users found in the database
      */
     public function getAllUsers(): array
     {
@@ -57,7 +59,7 @@ class UserService implements ServiceInterface
 
     /**
      * @param $id
-     * @return User|null
+     * @return User|null returns a user object if found by id, otherwise a null
      */
     public function getUserById($id): ?User
     {
@@ -72,7 +74,7 @@ class UserService implements ServiceInterface
 
     /**
      * @param $name
-     * @return array
+     * @return array gets all users by a given name
      */
     public function getUsersByName($name): array
     {

@@ -3,10 +3,22 @@ include_once 'advertisement.php';
 include_once 'UserService.php';
 include_once 'ServiceInterface.php';
 
+/**
+ *
+ */
 class AdvertisementService implements ServiceInterface
 {
+    /**
+     * @var mysqli|false
+     */
     private mysqli $connection;
+    /**
+     * @var UserService
+     */
     private UserService $userService;
+    /**
+     * @var array
+     */
     private array $config;
 
     /**
@@ -24,6 +36,9 @@ class AdvertisementService implements ServiceInterface
         $this->userService = new UserService();
     }
 
+    /**
+     * @return array returns all of the advertisements found in the database
+     */
     public function getAllAdvertisements(): array
     {
         if ($this->connection->connect_error) {
@@ -49,6 +64,10 @@ class AdvertisementService implements ServiceInterface
 
     }
 
+    /**
+     * @param $id
+     * @return Advertisement|null returns an advertisement by id, otherwise null
+     */
     public function getAdvertisementById($id): ?Advertisement
     {
         $allAds = $this->getAllAdvertisements();
@@ -60,6 +79,10 @@ class AdvertisementService implements ServiceInterface
         return null;
     }
 
+    /**
+     * @param $userId
+     * @return array returns advertisements by a specific userid
+     */
     public function getAdsByUserId($userId): array
     {
         $allAds = $this->getAllAdvertisements();
@@ -73,6 +96,9 @@ class AdvertisementService implements ServiceInterface
     }
 
 
+    /**
+     *
+     */
     public function __destruct()
     {
         $this->connection->close();

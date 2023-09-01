@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * A simple trick for setting up configuration of database access
+ * */
  return array(
      'DATABASE_URL'=>'localhost',
      'DATABASE_PORT'=>'3306',

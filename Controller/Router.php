@@ -1,7 +1,13 @@
 <?php
 
+/**
+ *
+ */
 class Router
 {
+    /**
+     * @var array of Route classes
+     */
     private array $routes;
 
     /**
@@ -12,6 +18,9 @@ class Router
         $this->routes = $routes;
     }
 
+    /**
+     * @return void the function determining which route has to be shown, shows a not found page if a route is not found
+     */
     public function display()
     {
         $currentRoute = $_SERVER['REQUEST_URI'];

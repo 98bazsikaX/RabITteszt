@@ -1,8 +1,15 @@
 <?php
 include_once 'ViewInterface.php';
 
+/**
+ *
+ */
 class AdView implements ViewInterface
 {
+    /**
+     * @param $dataSource a service to feed the view data
+     * @return string html code of the view/page as a string
+     */
     public function renderView($dataSource): string
     {
         $ads = isset($_GET['userid']) ? $dataSource->getAdsByUserId($_GET['userid']) : $dataSource->getAllAdvertisements();

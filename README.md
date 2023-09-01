@@ -1,5 +1,10 @@
 # RabITteszt
 
+## Usage
+A xampp server was used in this project, the xampp's htdocs was rerouted to a different folder in my documents' folder.
+init.sql has to be run in the database, in order to create the database and the tables with a few mock data
+
+
 ## Task
 It's a really simple php application, based on an MVC pattern. I'd like to
 have a system which is implemented in core PHP (no framework or CMS can be
